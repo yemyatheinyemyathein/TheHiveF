@@ -22,7 +22,7 @@ const MemberSchema = z.object({
 
 type MemberFormData = z.infer<typeof MemberSchema>;
 
-const departments = ["Art", "Academic", "HR", "Creative","Tech"];
+const departments = ["Art", "Academic", "HR", "Creative", "Tech"];
 const positions = ["Member", "Leader", "Head", "Founding member"];
 
 const MemberForm: React.FC = () => {
@@ -86,7 +86,7 @@ const MemberForm: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen mx-auto p-24 bg-gray-800 text-white">
+    <div className="w-full min-h-screen mx-auto p-4 md:p-24 bg-gray-800 text-white">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
           <motion.label
@@ -129,7 +129,7 @@ const MemberForm: React.FC = () => {
           {errors.about && <span className="text-red-400 text-sm">{errors.about.message}</span>}
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <motion.label
               className="block text-sm font-medium mb-1"
@@ -192,7 +192,7 @@ const MemberForm: React.FC = () => {
           >
             Social Links
           </motion.label>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
             <motion.input
               {...register("socialLinks.facebook")}
               className="w-full p-3 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -241,38 +241,39 @@ const MemberForm: React.FC = () => {
           >
             Upload Image
           </motion.label>
-          <input
+          <motion.input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-white hover:file:bg-blue-700 cursor-pointer"
+            className="w-full p-3 bg-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3, delay: 0.8 }}
           />
-          {isUploadingImage ? (
-            <div className="mt-2 flex justify-center">
-              <ClipLoader color="#ffffff" loading={true} size={35} />
-            </div>
-          ) : (
-            imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Preview"
-                className="mt-4 rounded-lg shadow-lg max-w-full h-auto"
-              />
-            )
+          {imagePreview && (
+            <motion.img
+              src={imagePreview}
+              alt="Image Preview"
+              className="mt-4 w-full h-64 object-cover rounded-md"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: 0.9 }}
+            />
+          )}
+          {isUploadingImage && (
+            <ClipLoader color="#4A90E2" loading={true} size={40} />
           )}
         </div>
 
         <motion.button
           type="submit"
-          className="w-full py-3 px-4 bg-green-500 rounded-md text-white font-semibold hover:bg-green-600 transition-colors duration-300"
-          whileHover={{ scale: 0.99 }}
-          whileTap={{ scale: 0.95 }}
+          className="w-full p-3 bg-green-600 rounded-md text-white font-semibold hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: 1.0 }}
+          disabled={isSubmitting}
         >
-          {isSubmitting ? (
-            <ClipLoader color="#ffffff" loading={true} size={24} />
-          ) : (
-            "Submit"
-          )}
+          {isSubmitting ? "Submitting..." : "Submit"}
         </motion.button>
       </form>
     </div>
