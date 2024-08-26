@@ -22,8 +22,8 @@ const MemberSchema = z.object({
 
 type MemberFormData = z.infer<typeof MemberSchema>;
 
-const departments = ["Technology", "Marketing", "Development", "Design"];
-const positions = ["Member", "Head", "Founder", "Co-Founder"];
+const departments = ["Art", "Academic", "HR", "Creative","Tech"];
+const positions = ["Member", "Leader", "Head", "Founding member"];
 
 const MemberForm: React.FC = () => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -149,7 +149,7 @@ const MemberForm: React.FC = () => {
               <option value="" disabled>Select Department</option>
               {departments.map((dept) => (
                 <option key={dept} value={dept}>
-                  {dept}
+                  {dept} Department
                 </option>
               ))}
             </motion.select>
@@ -265,7 +265,7 @@ const MemberForm: React.FC = () => {
         <motion.button
           type="submit"
           className="w-full py-3 px-4 bg-green-500 rounded-md text-white font-semibold hover:bg-green-600 transition-colors duration-300"
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 0.99 }}
           whileTap={{ scale: 0.95 }}
         >
           {isSubmitting ? (
